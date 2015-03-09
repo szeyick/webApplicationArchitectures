@@ -87,4 +87,4 @@ Enable/Disable JMS Transport
 - Uncomment the section **\<transportReceiver name="jms"\>** to **\</transportReceiver\>** that corresponds to ActiveMQ.
 - Uncomment the section **\<transportSender name="jms"\>** to **\</transportSender\>** that corresponds to ActiveMQ.
 
-To run ActiveMQ execute the **activemq.bat** file in **$ACTIVEMQ_HOME\bin.
+To run ActiveMQ execute the **activemq.bat** file in **$ACTIVEMQ_HOME\bin**.
