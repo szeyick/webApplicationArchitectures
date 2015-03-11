@@ -91,4 +91,26 @@ Complex services involved the assembling of information from other services. An 
 
 These are achieved through **standards (JSON, XML communication)**, **simple integration** and **dynamic changes**.
 
+#### REST
 
+REST based web services (Representational State Transfer), is a data centric approach to developing web services. Data with internal state is emphasised here, where services perform operations on the data.
+
+It is a lightweight approach as it is based on HTTP where you do not require any additional middleware.
+
+REST generally follows the core CRUD (Create, Retrieve,  Update, Delete) HTTP operations.
+
+- GET - receive information on a resource
+- POST - create a new resource 
+- PUT - modify an existing resource
+- Delete - delete a resource 
+- HEAD and OPTIONS are also used to get metadata and supported HTTP calls.
+
+In REST everything is referenced as a URI. 
+
+Resource Orientated architectures are examples of RESTful architectures.
+
+##### Web Service Standards
+
+WS provide an additional set of standards on top of HTTP for the development of web services. It is considered heavier than REST based services as there is an additional layer of middleware or frameworks are used to build services.
+
+RPC, Message Orientated and Event Orientated architectures are example of Web Service Architectures.
