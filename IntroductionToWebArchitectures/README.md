@@ -109,7 +109,7 @@ In REST everything is referenced as a URI.
 
 Resource Orientated architectures are examples of RESTful architectures.
 
-##### Web Service Standards
+#### Web Service Standards
 
 WS provide an additional set of standards on top of HTTP for the development of web services. It is considered heavier than REST based services as there is an additional layer of middleware or frameworks are used to build services.
 
