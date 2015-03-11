@@ -93,17 +93,17 @@ These are achieved through **standards (JSON, XML communication)**, **simple int
 
 #### REST
 
-REST based web services (Representational State Transfer), is a data centric approach to developing web services. Data with internal state is emphasised here, where services perform operations on the data.
+REST based web services (**Re**presentational **S**tate **T**ransfer), is a data centric approach to developing web services. The emphasis with REST is the data.
 
-It is a lightweight approach as it is based on HTTP where you do not require any additional middleware.
+It is considered as a lightweight approach to creating web services since HTTP is the only thing that is needed. 
 
 REST generally follows the core CRUD (Create, Retrieve,  Update, Delete) HTTP operations.
 
-- GET - receive information on a resource
-- POST - create a new resource 
-- PUT - modify an existing resource
-- Delete - delete a resource 
-- HEAD and OPTIONS are also used to get metadata and supported HTTP calls.
+- **GET** - receive information on a resource
+- **POST** - create a new resource 
+- **PUT** - modify an existing resource
+- **Delete** - delete a resource 
+- **HEAD** and **OPTIONS** are also used to get metadata and supported HTTP calls.
 
 In REST everything is referenced as a URI. 
 
