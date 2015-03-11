@@ -8,11 +8,15 @@ As time evolved the landscape of distributed systems changed. Many large vendors
 
 ### REST
 
-REST uses HTTP as the vehicle for transferring data and performing operations between web services over the Internet (CRUD). It is not a standardised architecture and acts as more of a guideline for development.
+REST uses **HTTP as the vehicle for transferring data and performing operations between web services over the Internet (CRUD)**. It is not a standardised architecture and acts as more of a guideline for development.
 
-However HTTP is such a generic message service, that not all HTTP based approaches are classified as RESTful. 
+However HTTP is such a generic message service, that **not all HTTP based approaches are classified as RESTful**. 
 
 For example, you could put method calls in the HTTP message headings to call specific functions in another web service. It functions like a RPC call rather than simply passing the data around to be manipulated.
+
+http://api.flick3.com/services/rest?api_key=xxx&**method=flickr.photo.search**&tags=penguin
+
+The URL contains **method=flickr.photo.search**, which places method names and arguments in a **GET** message.
 
 ### Architecture
 
@@ -26,9 +30,15 @@ Most designs for systems using the REST approach can fit into the CRUD model, wh
 
 ### Unique Identification
 
-http://server:port/path/to resource?p1=v1&p2=v2 represents a URI.
+As mentioned, all resources in REST are referenced with a unique URI.
+
+![alt text][logo]
+
+[logo]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTUri.png "Unique URI References"
 
 ### REST Requests
+
+Requests use HTTP to send messages around using the CRUD model.
 
 Accept/Content Type represents how you want to format the information.
 POST is used for creating new instances or objects,
