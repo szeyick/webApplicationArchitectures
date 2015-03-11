@@ -46,9 +46,9 @@ Requests use HTTP to send messages around using the CRUD model.
 
 Complex queries may be harder to perform using the CRUD system. An idea would be to provide a form for the client to fill in to provide additional information in the URI.
 
-![alt text][logo]
+![alt text][interface]
 
-[logo]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTInterface.png "REST provides uniform interfaces"
+[interface]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTInterface.png "REST provides uniform interfaces"
 
 #### Error Handling
 
