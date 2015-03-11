@@ -40,11 +40,15 @@ As mentioned, all resources in REST are referenced with a unique URI.
 
 Requests use HTTP to send messages around using the CRUD model.
 
-Accept/Content Type represents how you want to format the information.
-POST is used for creating new instances or objects,
-PUT is used for updating existing objects.
+- The **Accept/Content Type** represents how you want to format the information.
+- **POST** is used for creating new instances or objects,
+- **PUT** is used for updating existing objects.
 
 Complex queries may be harder to perform using the CRUD system. An idea would be to provide a form for the client to fill in to provide additional information in the URI.
+
+![alt text][logo]
+
+[logo]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTInterface.png "REST provides uniform interfaces"
 
 #### Error Handling
 
@@ -64,7 +68,6 @@ Because REST does not have a standard, errors during execution of requests on a 
 - URLS to resources should contain **nouns** rather than verbs.
 - How to represent the information in the resource.
 - Consider how the client interacts with the data (read-only, modify) as the resources can be made accessible using specific CRUD requests.
-
 
 ### Building REST Web Services
 
