@@ -26,7 +26,7 @@ It follows a client-server architecture, and the application state is driven by 
 
 Most designs for systems using the REST approach can fit into the CRUD model, where you map those operations to the functional operations of the system.
 
-**resources** can be anything, a SQL query, text file, a program, something that you wish to perform an operation on. Each resource can be represented in different ways to the user/service.
+**resources** can be anything, a SQL query, text file, a program, something that you wish to perform an operation on. Each resource can be represented in different ways to the user/service. This is often required as web services can talk to each other alongside talking to clients, which may require the same data in a different format.
 
 ### Unique Identification
 
@@ -40,9 +40,12 @@ As mentioned, all resources in REST are referenced with a unique URI.
 
 Requests use HTTP to send messages around using the CRUD model.
 
-- The **Accept/Content Type** represents how you want to format the information.
-- **POST** is used for creating new instances or objects,
-- **PUT** is used for updating existing objects.
+To compose a query, we need to build a URI string, which connects the client to the particular reference object.
+
+- **URI** - Identifies the target.
+- **Verb** - One of the CRUD commands to perform an operation on the resource (PUT, GET, POST, DELETE).
+- **Accept/Content Type** - How to represent the information (the format).
+- **Other Headers** - Additional elements to assist in the processing context.
 
 Complex queries may be harder to perform using the CRUD system. An idea would be to provide a form for the client to fill in to provide additional information in the URI.
 
@@ -56,8 +59,8 @@ Because REST does not have a standard, errors during execution of requests on a 
 
 ### HTTP Semantics
 
-- Safe methods will not change the state of the resource (GET)
-- Idempotent methods will not alter the result so long as the method argument contains the same parameters (PUT, GET, DELETE).
+- Safe methods **will not change the state of the resource** (GET)
+- Idempotent methods **will not alter the result so long as the method argument contains the same parameters** (PUT, GET, DELETE).
 
 ### Caching
 
@@ -77,10 +80,10 @@ Because REST does not have a standard, errors during execution of requests on a 
 ### Advantages
 
 - Simple CRUD operations and standard HTTP error codes.
-- Loose coupling by referencing resources through URIs
+- Loose coupling by referencing resources through URIs (However we still need to know the exact URI)
 - Data can be represented in many ways.
 - Services are stateless, providing highly scalable services that are quick (caching)
-- URIs can be late binded and do not need to be known beforehand by the client.
+- URIs can be late binded and do not need to be known beforehand by the client, links to resources can be changed dynamically. (**Loose interface and address coupling**
 - Good for client driven services
 
 ### Disadvantages
