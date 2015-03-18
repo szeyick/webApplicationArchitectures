@@ -34,3 +34,22 @@ Describes how to declare an element in XML, it must have
 1. A name
 2. A type - either simple or complex types. A complex type is a data type that can include other elements or attributes. A simple type is a string, integer, etc.
 3. Cardinality (minOccurs, maxOccurs)
+
+## WSDL - Web Service Description Language
+
+Describing the interface, the contract between the develper and user. It is the users job to find the description and interact with the web service through that interface.
+
+It is an XML based description language, where the user interacts with the web service through the interface without having to interact with the concrete implementation of the service itself. This allows the implementation to be done in basically any language irrespective of what the user can understand.
+
+### Web Services in Context
+The following is described by WSDL 
+
+- what the service can do : **functionality**
+- how good the service can do it
+- how to use the service 
+
+### WSDL Structure
+- the interface definition  describes the general structure of the service. It contains the operations supported by the service and other things.
+
+- the port type is otherwise known as the interface.
+
