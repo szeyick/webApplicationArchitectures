@@ -32,7 +32,7 @@ It follows a client-server architecture, and the application state is driven by 
 
 Most designs for systems using the REST approach can fit into the CRUD model, where you map those operations to the functional operations of the system.
 
-**resources** can be anything, a SQL query, text file, a program, something that you wish to perform an operation on. Each resource can be represented in different ways to the user/service. This is often required as web services can talk to each other alongside talking to clients, which may require the same data in a different format.
+**resources** can be anything, a SQL query, text file, a program, something that you wish to perform an operation on. Each resource can be represented in different ways to the user/service. This is often required as different clients or services can reference the same resource and may require them to be interpreted differently.
 
 ![alt text][resources]
 
@@ -69,23 +69,23 @@ REST Interfaces follow a standard pattern for all sorts of requests, rather than
 
 In this example, we'll show how CRUD operations are used along with URI's to access different areas of a web service.
 
-1. The flow here represents a REST request to the web server to GET all parts. The URI accesses a specific area of the web server that will manage this request, it will send a response back to the client.
+- The flow here represents a REST request to the web server to GET all parts. The URI accesses a specific area of the web server that will manage this request, it will send a response back to the client.
 
 ![alt text][RESTRequest]
 
 [RESTRequest]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTRequest.png "REST request to retrieve"
 
-2. In addition, we can request for a specific part by using the same GET request but with a different URI. This allows the web server to process the request with the part number to return the correct information to the client.
+- In addition, we can request for a specific part by using the same GET request but with a different URI. This allows the web server to process the request with the part number to return the correct information to the client.
 
 ![alt text][RESTSpecificRequest]
 
 [RESTSpecificRequest]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTSpecificRequest.png "REST request to retrieve specific part"
 
-3. Finally, again by changing the URI and performing a PUT request, we can perform a different action. This time it would be to ask the web server to process our part order.
+- Finally, again by changing the URI and performing a PUT request, we can perform a different action. This time it would be to ask the web server to process our part order.
 
-![alt text][RESTSpecificRequest]
+![alt text][RESTProcessRequest]
 
-[RESTSpecificRequest]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTRequestOrder.png "REST request to process order"
+[RESTProcessRequest]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTRequestOrder.png "REST request to process order"
 
 ### Error Handling
 
@@ -94,7 +94,14 @@ Because REST does not have a standard, errors during execution of requests on a 
 ### HTTP Semantics
 
 - Safe methods **will not change the state of the resource** (GET)
-- Idempotent methods **will not alter the result so long as the method argument contains the same parameters** (PUT, GET, DELETE).
+- Idempotent methods **will not change the result so long as the method argument contains the same parameters** (PUT, GET, DELETE).
+
+| Verb (CRUD)   | Safe          | Idempotent  |
+| ------------- |:-------------:| -----------:|
+| GET           | YES           | YES         |
+| PUT           | NO            | YES         |
+| POST          | NO            | NO          | 
+| DELETE        | NO            | YES         | 
 
 ### Caching
 
