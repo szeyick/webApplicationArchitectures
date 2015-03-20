@@ -6,9 +6,13 @@ In the beginning enterprise services were coupled together using CORBA, MoM, ESB
 
 As time evolved the landscape of distributed systems changed. Many large vendors developed their own middleware products to manage complex systems such as IBM Web Sphere, WSO2.
 
-### REST
+**RPC**, **Message Orientated** and **Event Orientated** architectural styles use the standard WS* protocols.
 
-REST uses **HTTP as the vehicle for transferring data and performing operations between web services over the Internet (CRUD)**. It is not a standardised architecture and acts as more of a guideline for development.
+WS* views HTTP as a **transport protocol** to carrying SOAP (Simple Object Access Protocol) messages
+
+### REST (Representational State Transfer)
+
+REST uses **HTTP as the vehicle for transferring data and performing operations between web services over the Internet (CRUD)**. It is not a standardised architecture and acts as more of a guideline for development. It uses HTTP methods to **share application state** across the network.
 
 However HTTP is such a generic message service, that **not all HTTP based approaches are classified as RESTful**. 
 
@@ -18,15 +22,21 @@ http://api.flick3.com/services/rest?api_key=xxx&**method=flickr.photo.search**&t
 
 The URL contains **method=flickr.photo.search**, which places method names and arguments in a **GET** message.
 
+**Resource Orientated** architectural styles use RESTful protocols.
+
 ### Architecture
 
 All data in REST is referenced with a URI. All resources are comprised of unique identifiers.
 
-It follows a client-server architecture, and the application state is driven by the client updating the resources.
+It follows a client-server architecture, and the application state is driven by the client updating the resources. It updates resources across the network by using links provided by the server.
 
 Most designs for systems using the REST approach can fit into the CRUD model, where you map those operations to the functional operations of the system.
 
 **resources** can be anything, a SQL query, text file, a program, something that you wish to perform an operation on. Each resource can be represented in different ways to the user/service. This is often required as web services can talk to each other alongside talking to clients, which may require the same data in a different format.
+
+![alt text][resources]
+
+[resources]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTfulResources.png "RESTful References"
 
 ### Unique Identification
 
@@ -38,7 +48,7 @@ As mentioned, all resources in REST are referenced with a unique URI.
 
 ### REST Requests
 
-Requests use HTTP to send messages around using the CRUD model.
+REST uses a resource orientated design meaning that for each particular action (i.e createOrder, processOrder) in a application, it refers to those actions through specific CRUD interface calls.
 
 To compose a query, we need to build a URI string, which connects the client to the particular reference object.
 
@@ -49,11 +59,35 @@ To compose a query, we need to build a URI string, which connects the client to 
 
 Complex queries may be harder to perform using the CRUD system. An idea would be to provide a form for the client to fill in to provide additional information in the URI.
 
+REST Interfaces follow a standard pattern for all sorts of requests, rather than user driven interface definitions.
+
 ![alt text][interface]
 
 [interface]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTInterface.png "REST provides uniform interfaces"
 
-#### Error Handling
+### REST Example
+
+In this example, we'll show how CRUD operations are used along with URI's to access different areas of a web service.
+
+1. The flow here represents a REST request to the web server to GET all parts. The URI accesses a specific area of the web server that will manage this request, it will send a response back to the client.
+
+![alt text][RESTRequest]
+
+[RESTRequest]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTRequest.png "REST request to retrieve"
+
+2. In addition, we can request for a specific part by using the same GET request but with a different URI. This allows the web server to process the request with the part number to return the correct information to the client.
+
+![alt text][RESTSpecificRequest]
+
+[RESTSpecificRequest]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTSpecificRequest.png "REST request to retrieve specific part"
+
+3. Finally, again by changing the URI and performing a PUT request, we can perform a different action. This time it would be to ask the web server to process our part order.
+
+![alt text][RESTSpecificRequest]
+
+[RESTSpecificRequest]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTRequestOrder.png "REST request to process order"
+
+### Error Handling
 
 Because REST does not have a standard, errors during execution of requests on a web service will return standard HTTP error codes (i.e - 400, 404, 204, 200).
 
