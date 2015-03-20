@@ -1,18 +1,75 @@
 # WS Stack, XML and WSDL
 
-## Message exchange patterns (RPC)
+From previous topics, we know that WS* approaches refer to RPC, Message Orientated and Event Orientated architectural styles. It can sit on top of existing application protocols to send messages through a network (HTTP, HTTPS, SMTP).
 
-- One way operations - The operation where you send a message off but do not expect a response (fire and forget)
-- Request/Response Operations - As the name suggests, you send a message off and expect a response from the receiver.
-- Notification Operations - The opposite of a one way operation, the service/server sends the response to registered clients but does not expect the client to respond back.
-- Solicit/Response - The opposite of request/response, where the service/server sends a message and expects a response from the client.
+## Message Exchange Patterns (RPC - Remote Procedure Calls)
 
-# Message Orientated Middleware (MoM)
+RPC's are synchronous operations that follow the request/response pattern. The code is generally the same between the client and server, so the client essentially calls the same function on the server. This results in **tightly coupled code** since changes in either can stop the RPC from functioning correctly.
+
+## Message Orientated API's
+
+Can be both synchronous and asynchronous messsage types. The client and server communicate through messages, meaning that if we change the message, it will not break the interface. Either the client and server can choose to ignore the newer or unused parts of the message without affecting the behaviour.
+
+The messages that are exchanged between client and server are constructed through an XML schema.
+
+### Request/Response Messaging
+
+![alt text][requestResponse]
+
+[requestResponse]: https://github.com/szeyick/webApplicationArchitectures/blob/master/WSStack/resources/messageRequestResponse.png "Request/Response Example"
+
+As the name stipulates, it is a messaging operation where a message is received and a response is returned. The addition of the **output** element means that the web service is expected to respond.
+
+```
+<wsdl:operation name="DispatchOrder">
+  <wsdl:input message="tns:DispatchOrder_Message"/>
+  <wsdl:output message="tns:TrackingNumber_Message"/>
+</wsdl:operation>
+```
+
+### One Way Messaging
+
+Is a messaging operation where the message is sent by the client, but a response is not expected. An example of a one way message in a programming language would be a trigger of a `void doSomething()` method call.
+
+A one way message is defined in the schema as a **input** element without a corresponding **output**. This illustrates that no response is expected to be sent.
+
+```
+<wsdl:operation name="SubmitOrder">
+  <wsdl:input name="order" message="tns:SubmitOrder_Message"/>
+</wsdl:operation>
+```
+ 
+### Notification Messaging
+
+Is a messaging operation where the message is sent by the service/server to registered clients, but does not expect a response. It is similar to the one way message, but from the server side. 
+
+As such, the message schema will contain a **output** element and no **input** element.
+
+```
+<wsdl:operation name="SendInvoice">
+  <wsdl:output name="invoice" message="tns:SubmitInvoice_Message"/>
+</wsdl:operation>
+```
+
+### Solicit Response 
+
+A message operation that would be the opposite of request/response. In this instance, the service/server sends the request to the client expecting a result. As this is the opposite, the message schema for the order of **input** and **output** elements are the opposite of the request/response schema.
+
+```
+<wsdl:operation name="VerifyDelivery">
+  <wsdl:output message="tns:VerifyDelivery_Message"/>
+  <wsdl:input message="tns:DeliveryReceived_Message"/>
+</wsdl:operation>
+```
+
+## Message Orientated Middleware (MoM)
+
+Middleware functions as a sort of broker/mediator of messages, where it manages and directs where the messages go.
 
 MoM provides the following functions
 - Queuing
 - Event driven processing (publish/subscribe pattern)
-- messages are serialised, delivered once.
+- Messages are serialised, delivered once.
 - Message structures are sent in XML, so the middleware is unconcerned with the message type.
 
 # XML Schema
