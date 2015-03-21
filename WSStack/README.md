@@ -72,41 +72,169 @@ MoM provides the following functions
 - Messages are serialised, delivered once.
 - Message structures are sent in XML, so the middleware is unconcerned with the message type.
 
-# XML Schema
+## XML Schema
 
-- The template functions as a template to construct a message (document) that is compatible for web services.
-- It defines they **structure** and **datatype** of the document.
+Is used for the validation of XML **instance** documents. The schema itself specifies the **structure** (elements, attributes) and the **datatype** of each element/attribute, essentially how the data should look like.
 
-# Namespaces
+The schema is written in XML, so uses the same syntax as XML and is used to define WS standards. A validator is used to ensure that the data can be accepted/used by the recipient.
 
-- The namespace is the collection of names, identified by a URI a reference which is used by the XML documents to define the element types and attribute names. 
-- The schema defines how the data is structured, the data to conform to the structure is the document.
-- www.corefilling.com provides a XML validation to ensure that the XSD and XML conform.
+XML in a web service can be used for the following -
 
-# Element Declaration
+- Storing the service contract in a registry.
+- Configuring the service
+- Structure of the data from the message so the server can parse the XML.
 
-Describes how to declare an element in XML, it must have
+## Namespaces
 
+Is a collection of names, contained within a URI reference (generally a file somewhere) that stores the valid element types and names that can be used by a schema to define an XML document.
 
-1. A name
-2. A type - either simple or complex types. A complex type is a data type that can include other elements or attributes. A simple type is a string, integer, etc.
-3. Cardinality (minOccurs, maxOccurs)
+Every XML schema uses **at least two** namespaces to provide the vocabulary for the document. The main one being the namespace provided by W3C that contains all the generic types that can be used, and sometimes a user defined vocabulary.
+
+The below defines a user created XML for defining a bookstore with the two namespace documents.
+```
+<?xml version="1.0"?>
+<BookStore xmlns="http://www.bookstore.org"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           <!-- The schema location, tells the validator that the bookstore.org namespace is defined by the BookStore.xsd-->
+           xsi:schemaLocation="http://www.bookstore.org
+                                        BookStore.xsd">
+           
+           <Book>
+           ....
+          </Book>
+</BookStore>
+```
+The corresponding XML schema for the bookstore could be defined as follows
+
+```
+<?xml version="1.0">
+<!-- All XML schemas start with the <schema> tag -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            targetNamespace="http://www.bookstore.org"
+            xmlns="http://www.books.org" <!-- The default namespace -->
+            elementFormDefault="qualified">
+    <xsd:element name="BookStore"> 
+    <!-- xsd points to the http://www.w3.org/2001/XMLSchema definition, meaning it must be used before every schema element-->
+    </xsd:element>
+</xsd:schema>
+```
+
+Because we defined the bookstore to contain the default namespace, it means that the W3C XMLSchema needs to be referenced through the "xsd" qualifier, otherwise it will have no idea where to look for the standard element or attribute names. We can always change this around so that the W3C schema is taken as default and the bookstore to be the additional namespace, which becomes - 
+
+```
+<?xml version="1.0">
+<!-- All XML schemas start with the <schema> tag -->
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" 
+            targetNamespace="http://www.bookstore.org"
+            xmlns:bs="http://www.books.org" <!-- The default namespace -->
+            elementFormDefault="qualified">
+    <element name="BookStore"> 
+    ...
+    </:element>
+</xsd:schema>
+```
+
+Within a schema, elements can be classed as **global** if they sit as a **direct child of the schema element**. This allows them to be referenced anywhere within the schema itself.
+
+Schema files can be imported into existing schema documents using the **import** and **include** element tags. Import allows access to elements and types in a **different namesapce** (different file), whereas include allows access to elements and tags in the **same namespace**, which is used if we have a large file with multiple schemas (`<xsd:schema></xsd:schema>`) defined.
+
+### XMLSchema-instance Namespace
+An additional namespace, http://www.w3.org/2001/XMLSchema-instance allows a namespace to be extended. Names within those namespaces are generally referenced through the **xsi prefix**. For example the xsi:noNamespaceSchemaLocation and xsi:schemaLocation allows us to tie a document to its W3C XML Schema.
+
+www.corefilling.com provides a XML validation to ensure that the XSD and XML conform.
+
+## Element Declarations
+
+A **Element** in XML can be seen as an object, and is defined using the `**<xsd:element></xsd:element>**` tag. Anything inbetween the opening and closing tags of the element is seen as part of the element.
+
+Elements can be comprised of -
+
+1. A name - `<xsd:element name="nameOfElement"></xsd:element>`
+2. A type - `<xsd:element type="xsd:string></xsd:element>` (The default type is a string if no type is defined)
+3. Cardinality - `<xsd:element minOccurs="3" maxOccurs="3"></xsd:element>` (Number of elements)
+
+### Simple Types -
+
+Simple types generally refer to primitives such as strings and integers. There are three types of simple data type structures.
+
+1. Build-in Types - Primitives
+2. Derived Types - Build from primitives or other derived stypes.
+3. User Derived Types - Created types comprised of the first two.
+
+With User Derived Types we can build our own derived types by using a primitive and attaching our own properties (restrictions) onto it.
+
+```
+<xsd:simpleType name="name">
+  <!-- The restruction uses a primitive type as the "base" to build on top-->
+  <xsd:restriction base="xsd:source>"
+    <!-- A facet is the restrictions that we would like to place ontop of our type.  -->
+    <xsd:facet value="value"/>
+    <xsd:facet value="value"/>
+    ...
+  </xsd:restriction>
+</xsd:simpleType>
+```
+
+### Complex Types
+
+A complex type is a type that can include both elements and attributes. It is defined using the `<xsd:complexType>` and is used like a composite object. It has additional defintions to define how the type is structured.
+
+1. `<xsd:sequence>` - The ordered sequence of data between the start and end of the tag.
+2. `<xsd:choice` - The choice of the contained data between the start and end of the tag.
+3. `<xsd:all>` - All the contained data between the start and end tag in any order.
+
+Again they can also be derived much the same as simple types, in similar style as well.
+
+## Attribute Declarations
+
+A **Attribute** on XML defines the properties of the Element structure and is defined using the `<xsd:attribute></xsd:attribute>` tags, after the declaration of the Element.
+
+Attributes can be comprised of -
+
+1. A type - `<xsd:attribute type="attributeType"></xsd:attribute>`
+2. Uses - defined whether the attribute is needed, Optional (Not required), Required and Prohibited (Cannot be used on a given element)
+3. Fixed and Default Values - `<xsd:attribute fixed="2000"`/> and `<xsd:attribute default="2001""/>`
 
 ## WSDL - Web Service Description Language
 
-Describing the interface, the contract between the develper and user. It is the users job to find the description and interact with the web service through that interface.
+Describes the interface between the developer and the user. It is the users job to find the description and interact with the web service through the defined interface.
 
-It is an XML based description language, where the user interacts with the web service through the interface without having to interact with the concrete implementation of the service itself. This allows the implementation to be done in basically any language irrespective of what the user can understand.
+It is an XML based description language, where the user interacts with the web service through the interface and not the concrete implementation. This allows the service to hide its implementation and also allows for the service to be language independant since the user doesn't need to know.
+
+The language is designed to be created and read by machines and can be generated from objects or IDE tools.
 
 ### Web Services in Context
+
 The following is described by WSDL 
 
-- what the service can do : **functionality**
-- how good the service can do it
-- how to use the service 
+- What the service can do - Its **functionality** (WDSL)
+- How well the service can do it - Its **qualities** (Other WS standards)
+- How to use the service - Its **usage** (WDSL)
 
 ### WSDL Structure
-- the interface definition  describes the general structure of the service. It contains the operations supported by the service and other things.
 
-- the port type is otherwise known as the interface.
+The intention of WDSL is to provide a means of communication between the client and server without them directly knowing about each other. 
 
+The document itself describes -
+1. **What** the service does and the operations that it provides.
+2. **Where** the service resides, the address (URL)
+3. **How** the invoke the service, the formats to access the interface.
+
+The structure of the WSDL is separated into distinct sections -
+1. ** Service Interface Definition** - Defines all the **operations** that the service will provide, **parameters** and the **abstract data types**.
+2. **Service Implementation** - **Binds** the interface to the **concrete network address**, **protocols** and the **data structures**. Essentially the link between the interface and the concrete implementation.
+
+### WSDL Document Definitions
+
+#### Interface Definitions
+- **<types>** - The data type definitions
+- **<message>** - The operation parameters
+- **<operation>** - The description of the actions
+- **<portType>** - The definition of the operations (The interface)
+ 
+#### Concrete Definitions
+- **<binding>** - Bindings to operations
+- **<port>** - Bind to a end point
+- **<service>** - Location/Address for each binding.
+
+Additionally, **<import>** is used to reference other XML documents.
