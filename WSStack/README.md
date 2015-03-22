@@ -213,7 +213,7 @@ The following is described by WSDL
 
 ### WSDL Structure
 
-The intention of WDSL is to provide a means of communication between the client and server without them directly knowing about each other. 
+The intention of WDSL is to provide a means of communication between the client and server without them directly knowing about each other. It defines how to reach the implementation of the services that are available to a particular web service.
 
 The document itself describes -
 1. **What** the service does and the operations that it provides.
@@ -227,14 +227,67 @@ The structure of the WSDL is separated into distinct sections -
 ### WSDL Document Definitions
 
 #### Interface Definitions
-- **<types>** - The data type definitions
-- **<message>** - The operation parameters
-- **<operation>** - The description of the actions
-- **<portType>** - The definition of the operations (The interface)
+- **<types>** The data type definitions
+- **<message>** The operation parameters
+- **<operation>** The description of the actions
+- **<portType>** The definition of the operations (The interface)
  
 #### Concrete Definitions
-- **<binding>** - Bindings to operations
-- **<port>** - Bind to a end point
-- **<service>** - Location/Address for each binding.
+- **<binding>** Bindings to operations
+- **<port>** Bind to a end point
+- **<service>** Location/Address for each binding.
 
 Additionally, **<import>** is used to reference other XML documents.
+
+### WSDL Structure
+
+An example of the WDSL interface structure is below -
+
+```
+<?xml version="1.0"?>
+<wdsl:definitions <!-- xsd namespaces are defined here --> /">
+  <wdsl:types>
+    <!-- xsd type definition for message parts here -->
+  </wdsl:types>
+  <!-- list of messages -->
+  <wsdl:message name="abcRequest"> <!-- List of message parts here --> </wdsl:message>
+  <wsdl:message name="abcRespond"> <!-- List of message parts here --> </wdsl:message>
+  
+  <!-- list of port types -->
+  <wdsl:portType name="xyz">
+    <!-- list of operations-->
+    <wdsl:operation name="abc">
+      <!-- The input/output messages are linked to the list of messages that the service can receive/respond to list above -->
+      <wdsl:input message="tns:abcRequest"/>
+      <wsdl:output message="tns:abcResponse"/>
+  </wdsl:portType>
+</wdsl:definitions>
+```
+
+- **Namespaces** - The namespace declarations are done in between the `<wdsl:definitions>` tags.
+- **Types** - The types for the WSDL are declared between the `<wdsl:types>` tags, and are constructed as per types defined above.
+- **Messages** - The message definition (structure) is defined between `<wsdl:message>` tags. If we compare RPC and Document Style `<wsdl:message>`, its similar, but RPC refers to the **type** whereas document links to the **element**.
+- **Port Type** - Is a logical grouping of `<wdsl:operation>` (operations). It describes the operations that the web service supports, the message mode (input/output) and the type (message structure).
+ 
+An example of the WDSL concrete implementation is below -
+
+```
+<?ml version="1.0"?>
+<wsdl:definitions <!-- xsd namespaces defined here --> />
+  <!-- Abstract section goes here - It can be imported -->
+  <wsdl:binding name="portBindingName" type="tns:nameOfPortFromInterfaceDocument">
+  </wsdl:binding>
+  
+  <wsdl:service name="nameOfService">
+    <!-- List of ports -->
+    <wdsl:port name="nameOfPort" binding="portBindingName">
+      <!-- This port is associated to a port defined in the binding above -->
+      <!-- The binding links to a particular address or URI, where the service is located -->
+      <soapbind:address location="http//myshop.com:8080/orderingService"/>
+    </wdsl:port>
+  </wdsl:service>
+</wsdl:definitions>
+```
+- **Binding** - The `<binding>` element defines how the client and web service should exchange messages. Furthermore, the binding element may contain the **protocols** (SOAP, HTTP), **messaging styles** (RPC, Document) and **formatting styles**.
+- **Port** - The `<port>` element defines the location of the web service. It is possible for multiple port elements to refer to the same URI address as it can be used for load balancing.
+- **Service** - The `<service>` element contains a collection of ports, the name for the serive must be unique in the document.
