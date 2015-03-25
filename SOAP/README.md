@@ -1,9 +1,10 @@
-# SOAP - Simple Object Access Protocol
+L# SOAP - Simple Object Access Protocol
 
 The protocol in which messages and sent between the client and server. This differs from RESTful services as it is its own protocol whereas in REST it uses HTTP as the protocol (GET, PUT, DELETE) SOAP provides an additional layer of abstraction for messages to be sent.
 
 - WDSL abstraction defines the interface that exposes the methods or operations of the web service to the outside world. 
 - the concrete definition contains the end points that is the point that invokes the service. It implements from the abstract interface, this mapping is done by the binding which acts as the mediator or delegate that defines which interface maps to which concrete implementation.
+- the binding tag binds the interface and defines the style of the message (can be SOAP), the binding can state that which operation the SOAP message will be sent to.
 
 ## inter application communication (history)
 - to make distributed computing easier, in lower level programming they had the concept of opening ports of machines.
@@ -50,3 +51,4 @@ The protocol in which messages and sent between the client and server. This diff
 ## Disadvantage
 - very big message as it is structure is completely written in XML.
 - does not persist state, it is stateless so maintain state, the data may need to be saved, or current state sent back and forth.
+
