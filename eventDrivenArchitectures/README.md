@@ -72,3 +72,13 @@ For example, an event of loud noises, cars, and screetching of tires. Those thre
 - ESBs - Enterprise Service Buses
 - Event drive processing and rule engines.
 
+## WS* support for Publish/Subscribe EDA
+
+- Standard SOAP messages and WSDL are not enough in themselves (not detailed enough) to support highly decoupled architectures.
+
+- WS-Notification (OASIS) supports subscribe-notification pattern for EDA and peer-peer architectures.
+
+- WS-Eventing (W3C) is simpler implementation than WS-Notification
+
+- Ws-Addressing is the standard for adding extra **addresses and message** information in the SOAP header.
+
