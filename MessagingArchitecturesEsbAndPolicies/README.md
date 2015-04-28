@@ -41,7 +41,7 @@ The message queue functions as a container that holds the message until it is re
 
 ![alt text][messageQueue]
 
-[messageQueue]: https://github.com/szeyick/webApplicationArchitectures/blob/master/MessagingArchitecturesEsbAndPolicies/resources/storeAndForwardMessaging.png"Message Queue Holds Messages Until Required"
+[messageQueue]: https://github.com/szeyick/webApplicationArchitectures/blob/master/MessagingArchitecturesEsbAndPolicies/resources/storeAndForwardMessaging.png "Message Queue Holds Messages Until Required"
 
 ### Publish/Subscribe Messaging
 
