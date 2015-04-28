@@ -2,19 +2,23 @@
 
 ## Organisms Sense and Response: EDA
 
-The idea is to sense what is around you and make a decision on what to do. This is the concept behind event driven architectures, where you react to a particular thing.
+The idea here is to imitate real life by sensing the surroundings to make a decision on what to do next. This is the concept behind event driven architectures where you react to a particular event.
 
-The streams of data or event, are triggered from an external source, such as from senses (sight, sound, touch, etc).
+Biologically these events are triggered from an external source such as the senses (sight, sound, touch, taste, etc).
+
+In this scenario, the central nervous system detects the event and processes it.
 
 ## Internet of Things (IoT)
 
-Devices are now more interconnected, providing the state of the environment that they are in. It provides a more responsive environment since you can get updates in real-time.
+In the modern age of the internet, devices are now even more interconnected. This means that we are able to know the exact sate of the environment that they are in, which can in turn provide a more responsive system that can get updates in real-time. 
+
+With more devices now connected to the internet, the PC is no longer the only access point. Now, lights, plants, fridges and even more devices can get real-time updates from the internet. It allows for devices to attain situational awareness throught the internet.
 
 ## Events and Complex Events
 
-A event is classified as something that the system senses or is of interest to the system.
+An event is classified as something that the system senses or is of interest to the system.
 
-A complex event is defined as an event involving more than a single event. It could be dependent on several events occcuring at the same time.
+Furthermore a complex event is defined as an event that involves more than a single event. This means that it could be event that depends on several other events to occur at the same time for it to be triggered. An example of this would be the sending of an item, which depends on the purchase order and payment events before the sending event is triggered.
 
 ### Time, Causality and Aggregation
 
@@ -26,11 +30,11 @@ Three most common and important relation between events are
 
 ## Event Driven Architectures (EDA)
 
-Processes communicate by accessing shared events in a "event cloud". Each part of the system (a process) communicates with each other through a listener/observer pattern.
+EDA's follow the Event-Orientated architecture used the WS* standards.
 
-It is a asynchronous architecture.
+EDA processes communicate by accessing shared events in something called an **event cloud**. Each part of the system (or process) communicates with other parts of the system through the **publish/subscribe** pattern.
 
-It can also have a set of rules that react to certain events. 
+It is a purely asynchronous architecture that connects the subscribers with the publishers. Furthermore, we can also bind a set of rules to allow it to react differently to certain events.
 
 ### Features
 
@@ -41,44 +45,61 @@ It can also have a set of rules that react to certain events.
 
 ## Publish Subscribe Architectures
 
-It is a type of architecture for subscribing to events. The internal network within the system connects the publishers and subscribers together.
+Is a type of architecture pattern for subscribing to events. The internal network within the system connects the publishers and subscribers together.
 
-## Basic Architecture
+### Basic Architecture
 
-Event Publisher is the one that generates the events.
+- Event Publisher - Is the component that generates the events.
+- Event Subscriber - Is the component that subscribes to events.
+- Event Processing Engine - The component that pushes events from publisher to subscriber.
+ 
+### Event Processing Styles
 
-Event Subscriber is the one that subscribes to events.
+There are two types of processing styles, simple and complex events.
 
-## Event Processing Styles
+For **simple events**, the event is triggered and a the subscriber responds immediately.
 
-## Complex Event Processing - CEP
+**Complex events** can be comprised of a group of simple events. For example, an event of loud nosies, cars, and smell of tires can form a complex event of a race car.
 
-Is a set of techniques and tools to help understand and control event driven information systems. Such examples include a combination of events that lead to a complex event to be triggered.
+**Complex Event Processing (CEP)** includes a set of techniques and tools to help undersatnd and control event driven information systems.
 
-For example, an event of loud noises, cars, and screetching of tires. Those three events can form a complex event which would be a car race.
+### Event Driven Architectures and SOA
 
-## How EDA relates to SOA
+EDA's promote the decoupling of business processes through the publish/subscribe model. A publisher can trigger an event which can be consumed by multiple processes without them evern knowing about each other. As a result SOA and EDA's are complimentary architectures.
 
-- Event driven architectures promotes decoupling of business processes.
-- The same event can be consumed by multiple processes.
-- SOA and EDA are complementary
+Service Orientated Architectures (SOA), requires knowledge of where the service is. However with EDA, you can generate the event but you don't care who responds to it. 
 
-- SOA requires knowledge of where the service is, however in EDA, you generate the event but don't care who responds to it.
-- SOA is a one-one connection, however in EDA many services can respond/react to events, there is no direct connection between processes/services.
-- SOA primarily uses a request-response message exchange, however in EDA can process asynchronous calls. The events are triggered and any number of processes can respond.
+SOA creates a one-to-one connection, since the end points need to be mapped, but with EDA, many services can respond/react to events as there is no direct relationship between the publisher and subscriber. 
 
-## Implementing EDA
+SOA primarily uses a request-response message exchange whereas EDA's process messages through asynchronous calls.
 
-- ESBs - Enterprise Service Buses
-- Event drive processing and rule engines.
+### Implementing EDA
+
+EDA's can be implemented through -
+
+- Enterprise Service Buses (ESB's)
+- Event Driven Processing and rule engines.
 
 ## WS* support for Publish/Subscribe EDA
 
-- Standard SOAP messages and WSDL are not enough in themselves (not detailed enough) to support highly decoupled architectures.
-
+- Standard SOAP messages and WSDL configurations are not enough to support EDA's and highly decoupled architectures as they are not detailed enough to support it.
 - WS-Notification (OASIS) supports subscribe-notification pattern for EDA and peer-peer architectures.
-
 - WS-Eventing (W3C) is simpler implementation than WS-Notification
+- WS-Addressing is the standard for adding extra **addresses and message** information in the SOAP header.
 
-- Ws-Addressing is the standard for adding extra **addresses and message** information in the SOAP header.
+### WS-Addressing
+
+It allows developers to add processing and delivery instructions within a SOAP message header.
+
+- Destination - Contains a **Internationalised Resource Identier (IRI)** that represents the address of the intended receiver.
+- Source/Reply/Fault Endpoints - Contains details of where the message originated, receiver of replies and faults to be sent.
+- Action - Contains an IRI that identifies the intent of the message.
+- Message ID - An absolute IRI that identifies the message, can be used to track messages.
+- Relationship - A pair of values indicating how the message relates to another message.
+- Reference Parameters - Extend an address with parameters relevant to the web service.
+
+### Rule Engines 
+
+Executes When-Then rules. Essentially, when an event happens, then it does something. Similar to an if statement.
+
 
