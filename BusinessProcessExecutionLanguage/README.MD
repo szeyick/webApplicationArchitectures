@@ -44,5 +44,20 @@ Other notations that can be used -
 - Forking - Parallel/Split tasks that can be done concurrently. It represents the start/end of a concurrent activity.
 - Swim Lane - A grouping of activities performed by an individual stakeholder, much like swim lanes defined in Agile development. 
 
+## BPEL
 
+WSDL defined Web services have a stateless interaction model, which is sometimes insufficient when describing a business process. This is where BPEL comes in, it provides a more detailed view of the business process by introducing state, long running interactions that are designed to work with SOA.
 
+WSDL and BPEL are used in conjuction to define a business process. The language forms are both placed into a process engine that is used by the client to access the web service. Each client accesses a different instance of the process.
+
+### BPEL Process Structure
+
+It is a XML document.
+
+- Partner Links - Functions almost as imports that define the other processes that you may use within the current process. It establishes partner realationships by specifying the **roles of each party**. This is defined in the **BPEL Document**.
+- Correlation Sets - Identifies what kind of activities/data from the client links to a particular instance.
+- Partner Link Type - Describes the communication relationship between two partners by defining the **role** that each partner plays in an interaction and the **port types**. This is defined in the **WSDL Document**.
+
+### Partner Link to Partner Link Type
+
+It seems very similar to how we associated WSDL service end points. 
