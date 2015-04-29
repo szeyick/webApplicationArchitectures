@@ -61,3 +61,25 @@ It is a XML document.
 ### Partner Link to Partner Link Type
 
 It seems very similar to how we associated WSDL service end points. 
+
+The important parts here are the port type on both sides, and the partner link that defines the roles that each service plays.
+
+A benefit of multiple roles to the same service is that you can use it as a load balancer.
+
+### Binding Partners to Endpoints
+
+There are four binding schemes that are possible to bind services.
+
+### Basic Activities (I/O)
+
+There are three basic activities.
+
+- <receive> - Waiting for an operation from an external client.
+- <invoke> - A do something or invocation of service.
+- <reply> - A response to the client.
+
+These tags are within the BPEL process that are the links between the services.
+
+### Variables
+
+Messages pass the data around between processes. We can use variables to hold data for us within the message. These are represented as a <variable> tag. Furthermore we can use the <assign> tag to copy data into variables.
