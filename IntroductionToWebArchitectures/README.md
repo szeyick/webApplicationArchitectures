@@ -1,5 +1,17 @@
 # Introduction to Web Application Architectures
 
+### Revision Notes -
+
+- The business logic and business process is contained within the web service.
+- Computing in enterprise contains lots of concurrent access, persistent data, loosely coupled, distributed systems.
+- Programmable web means the exchange of XML documents that are used by software systems.
+- EAI is Enterprise Application Integration.
+- SOA is Service Orientated Architecture.
+- Web Services perform business functions in a contained environment.
+- Informational Services provide access to content, through a request/response interactions. (Weather Report, Stock Quotes)
+- Complex Services involve assembling a group of services to provide a particular behaviour. (Supply Chain, Order Taking)
+- W3C defines web services are accessed through a URL and can interact with clients or other services through internet protocols.
+
 ### Key Definitions
 1. Functional and Non-Functional Properties - 
     - Functional Properties describe what the service is to do and how it does it.
