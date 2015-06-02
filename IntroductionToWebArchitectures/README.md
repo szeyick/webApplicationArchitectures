@@ -1,17 +1,5 @@
 # Introduction to Web Application Architectures
 
-### Revision Notes -
-
-- The business logic and business process is contained within the web service.
-- Computing in enterprise contains lots of concurrent access, persistent data, loosely coupled, distributed systems.
-- Programmable web means the exchange of XML documents that are used by software systems.
-- EAI is Enterprise Application Integration.
-- SOA is Service Orientated Architecture.
-- Web Services perform business functions in a contained environment.
-- Informational Services provide access to content, through a request/response interactions. (Weather Report, Stock Quotes)
-- Complex Services involve assembling a group of services to provide a particular behaviour. (Supply Chain, Order Taking)
-- W3C defines web services are accessed through a URL and can interact with clients or other services through internet protocols.
-
 ### Key Definitions
 1. Functional and Non-Functional Properties - 
     - Functional Properties describe what the service is to do and how it does it.
@@ -19,11 +7,15 @@
 
 2. Stateless vs Stateful Services -
     - Stateless Services are services that can be invoked repeatedly without maintaining state or context.
+    - An example of a stateless service would be a weather service (simple request/response).
     - Stateful Services preserve context and can change from one invocation to another.
+    - An example of a stateful service would be a shopping cart (complex services that need to know state).
 
 3. Granuality -
     - Fine grained services, operate through a request/response mechanism.
+    - Fine grained services are services that don't have many dependencies on other services. 
     - Course grained services are more complex services that often interact with other services and aggregate a response.
+    - Course grained services would generally be a more stateful service, communication between services performed through the transfer of XML documents.
 
 4. Synchronicity - 
     - Synchronous communication between systems is where the system who sends the request waits for a response before continuing onto other tasks.
@@ -31,13 +23,25 @@
 
 5. Service Interface and Implementation -
     - The interface defines the functionality accessible by the outside world.
+    - The interface defines the required parameters and names that the outside world needs to access the web service.
     - The implementation is the concrete implementation of the interface definitions. 
+    - The implementation is hidden from the client allowing it to be written in any language as the client communicates with the interface.
+    
+6. Service Orientated Architecture -
+    - SOA is essentially a collection of service.
+    - SOA describes the interaction between services (through message exchange).
+    - In SOA, a service exposes itself through an interface usually defined by a WSDL. This WSDL allows a client to know what it needs to provide to the service to successfully connect and communicate with it.
+    - SOAP can be seen as the communications protocol that allows services in a SOA to communicate with each other.
 
 ### Web Services, what are they?
 
 In the most basic sense, a web service defines the method of communication between two devices over a network. Such examples of this would be a client browser and a remote server.
 
-It provides a function, hence the name **service** and works similar to a request/response mechanism.
+It provides a function, hence the name **service** and works similar to a request/response mechanism. The business logic and process is contained within the web service.
+
+Enterprise systems require concurrent access, persistence of data and loose coupling across possibly widely distributed systems.
+
+W3C defines web services are accessed through a URL and can interact with clients or other services through internet. protocols.
 
 ### Real World Examples
 
@@ -67,15 +71,15 @@ In enterprise computing there are many more factors that need to be considered w
 3. Configurable -> Requires system to be loosely coupled so components can be changed.
 4. Diverse systems -> large companies can have many different services coupled together to form a system.
 
-Enterprise orientated computing is sometimes refered to as Web Services. The idea here is to create loosely coupled systems that communicate with each other through the <b>exchange of documents</b>.
+Enterprise orientated computing is sometimes refered to as Web Services. The idea here is to create loosely coupled systems that communicate with each other through the <b>exchange of XML documents</b>.
 
 ### Web Service Function
 
 Web services perform business functions such as -
 
-1. A singular task such as withdrawing funds or checking the weather for a particular day.
-2. Providing an application such as a bank application or health insurance application.
-3. Automation of business processes such as purchasing office supplies.
+1. A singular task such as withdrawing funds or checking the weather for a particular day. (Informational Services)
+2. Providing an application such as a bank application or health insurance application. (Complex Services)
+3. Automation of business processes such as purchasing office supplies. (Complex Services)
 
 These individual services can be mixed and matched together to provide a complete system. 
 
@@ -103,7 +107,34 @@ Complex services involved the assembling of information from other services. An 
 
 These are achieved through **standards (JSON, XML communication)**, **simple integration** and **dynamic changes**.
 
-#### REST
+### Web Service Coupling
+
+The aim for a web service is to reduce the coupling between itself and other services.
+
+- Loose Coupling - The aim for a web service to reduce the dependency it has with another system.
+- Functional Coupling - Is where a web service is dependent on another web service.
+- Interface Coupling - Is where the exposed interface looks like the concrete implementation.
+- Data Structure Coupling - Is where the data passed between services is the same, meaning it cannot be altered or missed.
+- Temporal Coupling - Is where a service is required to wait (synchronous).
+- Address Coupling - Is where a service has its end point (URI) hard coded.
+
+### Web Service Architecture -
+
+Software achitecture is a high level view of a software system based on the functional and non-functional requirements. 
+
+There are four main architecture styles for web services.
+
+1. RPC (Remote Procedure Call) - Is where the client directly invokes methods on another service. It is a synchronous interaction that requires the client to know about the inner workings of the remote service. 
+
+2. Message Orientated - Is where communication between clients and services are performed by the transfer of XML documents. The documents usually contain the message (parameters, names, return types) which is deconstructed and processed on the server.
+
+3. Resource Orientated (CRUD) - Is where communication between clients and services are done using existing HTTP calls (GET, PUT, POST, DELETE) to invoke resources on a service.
+
+4. Event Orientated - Is where communication between clients and services are usually facilitated by a middleware. It functions as a publish/subscribe model where the sender of the message is does not know about who receives it. 
+
+These four architecture styles generally fall into two types of web service implementation, REST and WS*.
+
+### REST
 
 REST based web services (**Re**presentational **S**tate **T**ransfer), is a data centric approach to developing web services. The emphasis with REST is the data.
 
@@ -119,10 +150,16 @@ REST generally follows the core CRUD (Create, Retrieve,  Update, Delete) HTTP op
 
 In REST everything is referenced as a URI. 
 
-Resource Orientated architectures are examples of RESTful architectures.
+**Resource Orientated architectures** are examples of RESTful architectures.
 
-#### Web Service Standards
+### Web Service Standards (WS*)
 
 WS provide an additional set of standards on top of HTTP for the development of web services. It is considered heavier than REST based services as there is an additional layer of middleware or frameworks are used to build services.
+
+Communication between clients and services is done using a SOAP based messaging system along with a WSDL (Web Service Description Language) that defines how the message structured to be processed by the web service.
+
+Message Orientated Middleware (MoM) is used to act as a mediator between the client and service. It de-couples the client and service, allowing for a large number of independent services to be grouped together to function as a complex system without creating dependencies between them.
+
+In web services, ESB (Enterprise Service Bus) functions as the middleware.
 
 RPC, Message Orientated and Event Orientated architectures are example of Web Service Architectures.
