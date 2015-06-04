@@ -1,5 +1,30 @@
 # RESTful Web Services
 
+- WS* prodominantly SOAP messages and WSDL interface descriptions to describe the end points.
+- * (Standards) to allow enterprise services to interact with each other (QoS, Security, Descriptions)
+- HTTP is used as the **transport** protocol for carrying SOAP messages
+- BPEL (Business Process Execution Language) used to orchestrate how to communicate with web services.
+- RESTful (Representational State Transfer) uses HTTP methods, and is resource centric
+- REST uses HTTP as the **application** protocol, to share application state across clients and services.
+- Non-REST approach using HTTP, encoding the URL in the header to pass the parameters through to the service.
+
+- REST - exposes resources to client through a URI. Resources can be anything, not just application code.
+- REST - is a client server architecture, there is no middleware involved.
+- REST - is a design guide, not a standard.
+- REST - the URI contains the link to the resource, and the parameters that the service needs.
+- REST - using HTTP (CRUD), provides a uniform interface for accessing a service.
+- REST - URI - defines the target address, verb defines the (CRUD) operation, Accept/Content Type is the format that the information will be presented in, and other headers.
+- REST - uses standard HTTP error codes (200 OK, 404 Not Found etc)
+- REST - complex queries may require a form to add multiple values to the URI for the service to process.
+- REST - HTTP provides a generic interface, the structure of the message is independent from the content.
+- REST - **Safe Methods** - Invocations that will not change the state of a resource (GET)
+- REST - **Idempotent Methods** - Repeated Invocations will not change the result of the invocations (GET, PUT, DELETE), POST will update a resource.
+- REST - resources are information resources, not domain objects. Because of the limited CRUD commands, we may need to separate resources (order resource, payment resource) to perform commands. For example, a DELETE on a combined order, payment resource will not know which to delete.
+- REST - can use local cache and reverse proxy to improve performance and stability.
+- REST - language independent, does not require middleware.
+- REST - advantages : simple generic interface, CRUD operations, loose data coupling, no middleware, stateless, fast caching, scalable, resources links can be changed, client driven.
+- REST - disadvantages : Not industry standard (No WSDL), lack of tool support, does not integrate easily, exposing URI's can lead to security flaws, legacy systems built on RPC, PUT is not widely used as it can be blocked on some browsers, stateless.
+
 ### WS* SOAP Architectures
 
 In the beginning enterprise services were coupled together using CORBA, MoM, ESB approaches. These middleware technologies acted as a broker between distributed software systems.
