@@ -13,9 +13,7 @@ WS* views HTTP as a **transport protocol** to carrying SOAP (Simple Object Acces
 ### REST (Representational State Transfer)
 
 REST uses **HTTP as the vehicle for transferring data and performing operations between web services over the Internet (CRUD)**. It is not a standardised architecture and acts as more of a guideline for development. It uses HTTP methods to **share application state** across the network.
-
 However HTTP is such a generic message service, that **not all HTTP based approaches are classified as RESTful**. 
-
 For example, you could put method calls in the HTTP message headings to call specific functions in another web service. It functions like a RPC call rather than simply passing the data around to be manipulated.
 
 http://api.flick3.com/services/rest?api_key=xxx&**method=flickr.photo.search**&tags=penguin
