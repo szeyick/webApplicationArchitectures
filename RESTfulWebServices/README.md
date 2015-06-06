@@ -1,21 +1,5 @@
 # RESTful Web Services
 
-- WS* prodominantly SOAP messages and WSDL interface descriptions to describe the end points.
-- * (Standards) to allow enterprise services to interact with each other (QoS, Security, Descriptions)
-- HTTP is used as the **transport** protocol for carrying SOAP messages
-- BPEL (Business Process Execution Language) used to orchestrate how to communicate with web services.
-- RESTful (Representational State Transfer) uses HTTP methods, and is resource centric
-- REST uses HTTP as the **application** protocol, to share application state across clients and services.
-- Non-REST approach using HTTP, encoding the URL in the header to pass the parameters through to the service.
-
-- REST - exposes resources to client through a URI. Resources can be anything, not just application code.
-- REST - is a client server architecture, there is no middleware involved.
-- REST - is a design guide, not a standard.
-- REST - the URI contains the link to the resource, and the parameters that the service needs.
-- REST - using HTTP (CRUD), provides a uniform interface for accessing a service.
-- REST - URI - defines the target address, verb defines the (CRUD) operation, Accept/Content Type is the format that the information will be presented in, and other headers.
-- REST - uses standard HTTP error codes (200 OK, 404 Not Found etc)
-- REST - complex queries may require a form to add multiple values to the URI for the service to process.
 - REST - HTTP provides a generic interface, the structure of the message is independent from the content.
 - REST - **Safe Methods** - Invocations that will not change the state of a resource (GET)
 - REST - **Idempotent Methods** - Repeated Invocations will not change the result of the invocations (GET, PUT, DELETE), POST will update a resource.
@@ -27,19 +11,22 @@
 
 ### WS* SOAP Architectures
 
-In the beginning enterprise services were coupled together using CORBA, MoM, ESB approaches. These middleware technologies acted as a broker between distributed software systems.
+The early form of distributed enterprise services were coupled together using CORBA, MoM and ESB approaches. These middleware technologies acted as a mediator between different distributed software systems. BPEL (Business Process Execution Language) describes how to communicate between services (assigning of data, invoking services).
 
 As time evolved the landscape of distributed systems changed. Many large vendors developed their own middleware products to manage complex systems such as IBM Web Sphere, WSO2.
 
 **RPC**, **Message Orientated** and **Event Orientated** architectural styles use the standard WS* protocols.
 
-WS* views HTTP as a **transport protocol** to carrying SOAP (Simple Object Access Protocol) messages
+In WS*, **HTTP** is viewed as a **transport protocol** which carries SOAP (Simple Object Access Protocol) messages between clients and services. A WSDL (Web Service Description Language) interface is also used in WS* that describes a how clients will connect to the service implementation (end service).
+
+The * (Standards) in WS* refers to the standards that are used to allow for enterprise services to talk to each other (QoS, Services, Descriptions).
 
 ### REST (Representational State Transfer)
 
-REST uses **HTTP as the vehicle for transferring data and performing operations between web services over the Internet (CRUD)**. It is not a standardised architecture and acts as more of a guideline for development. It uses HTTP methods to **share application state** across the network.
+REST uses **HTTP** as an application protocol, to transfer data and operation information between web services over the internet. This differs from the WS* method which uses HTTP as a **transport protocol**. It is not a standardised architecture and acts as more of a guideline for development. It uses HTTP methods (CRUD) to **share application state** across the network.
+
 However HTTP is such a generic message service, that **not all HTTP based approaches are classified as RESTful**. 
-For example, you could put method calls in the HTTP message headings to call specific functions in another web service. It functions like a RPC call rather than simply passing the data around to be manipulated.
+For example, you could put method calls in the HTTP message headings to call specific functions in another web service. It passes the method to call as a parameter in the URL.
 
 http://api.flick3.com/services/rest?api_key=xxx&**method=flickr.photo.search**&tags=penguin
 
@@ -49,11 +36,11 @@ The URL contains **method=flickr.photo.search**, which places method names and a
 
 ### Architecture
 
-All data in REST is referenced with a URI. All resources are comprised of unique identifiers.
+All data in REST is referenced with a URI and all resources are comprised of unique indentifiers. This allows external clients to connect to a particular resource in a web service. The URI contains the location of the service, and also the data the service requires.
 
-It follows a client-server architecture, and the application state is driven by the client updating the resources. It updates resources across the network by using links provided by the server.
+It follows a client-server architecture meaning that there is no middleware required to mediate the communications. The client uses the URI endpoint to communicate directly with the server. Because of this model, the application state is driven by the client. 
 
-Most designs for systems using the REST approach can fit into the CRUD model, where you map those operations to the functional operations of the system.
+Designs for systems using the REST approach will need to fit into the CRUD model. This means that the operations that the service performs has to call within the GET, PUT, POST, DELETE commands.
 
 **resources** can be anything, a SQL query, text file, a program, something that you wish to perform an operation on. Each resource can be represented in different ways to the user/service. This is often required as different clients or services can reference the same resource and may require them to be interpreted differently.
 
@@ -63,11 +50,16 @@ Most designs for systems using the REST approach can fit into the CRUD model, wh
 
 ### Unique Identification
 
-As mentioned, all resources in REST are referenced with a unique URI.
+As mentioned, all resources in REST are referenced with a unique URI. 
 
 ![alt text][logo]
 
 [logo]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTUri.png "Unique URI References"
+
+There are a couple of components of the URI. The URL contains the location of the resource, the verb (CRUD Operation), the Accept/Content type, which is the format of the information we are sending/receiving and any other headers appropriate to invoke the resource.
+
+Because REST uses HTTP to transfer application state, it means that REST also uses standard HTTP error codes (200 OK, 404 Not Found).
+
 
 ### REST Requests
 
