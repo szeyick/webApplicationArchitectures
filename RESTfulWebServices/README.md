@@ -1,14 +1,5 @@
 # RESTful Web Services
 
-- REST - HTTP provides a generic interface, the structure of the message is independent from the content.
-- REST - **Safe Methods** - Invocations that will not change the state of a resource (GET)
-- REST - **Idempotent Methods** - Repeated Invocations will not change the result of the invocations (GET, PUT, DELETE), POST will update a resource.
-- REST - resources are information resources, not domain objects. Because of the limited CRUD commands, we may need to separate resources (order resource, payment resource) to perform commands. For example, a DELETE on a combined order, payment resource will not know which to delete.
-- REST - can use local cache and reverse proxy to improve performance and stability.
-- REST - language independent, does not require middleware.
-- REST - advantages : simple generic interface, CRUD operations, loose data coupling, no middleware, stateless, fast caching, scalable, resources links can be changed, client driven.
-- REST - disadvantages : Not industry standard (No WSDL), lack of tool support, does not integrate easily, exposing URI's can lead to security flaws, legacy systems built on RPC, PUT is not widely used as it can be blocked on some browsers, stateless.
-
 ### WS* SOAP Architectures
 
 The early form of distributed enterprise services were coupled together using CORBA, MoM and ESB approaches. These middleware technologies acted as a mediator between different distributed software systems. BPEL (Business Process Execution Language) describes how to communicate between services (assigning of data, invoking services).
@@ -55,11 +46,6 @@ As mentioned, all resources in REST are referenced with a unique URI.
 ![alt text][logo]
 
 [logo]: https://github.com/szeyick/webApplicationArchitectures/blob/master/RESTfulWebServices/resources/RESTUri.png "Unique URI References"
-
-There are a couple of components of the URI. The URL contains the location of the resource, the verb (CRUD Operation), the Accept/Content type, which is the format of the information we are sending/receiving and any other headers appropriate to invoke the resource.
-
-Because REST uses HTTP to transfer application state, it means that REST also uses standard HTTP error codes (200 OK, 404 Not Found).
-
 
 ### REST Requests
 
@@ -108,8 +94,8 @@ Because REST does not have a standard, errors during execution of requests on a 
 
 ### HTTP Semantics
 
-- Safe methods **will not change the state of the resource** (GET)
-- Idempotent methods **will not change the result so long as the method argument contains the same parameters** (PUT, GET, DELETE).
+- Safe methods **multiple invocations will not change the state of the resource** (GET)
+- Idempotent methods **multiple invocations will not change the result so long as the method argument contains the same parameters** (PUT, GET, DELETE).
 
 | Verb (CRUD)   | Safe          | Idempotent  |
 | ------------- |:-------------:| -----------:|
@@ -117,6 +103,12 @@ Because REST does not have a standard, errors during execution of requests on a 
 | PUT           | NO            | YES         |
 | POST          | NO            | NO          | 
 | DELETE        | NO            | YES         | 
+
+Multiple POST requests will result in additioanal resources being created as the purpose of POST is to create new resources.
+
+In REST, resources are seen as information sources and not domain objects. Because we have only 4 CRUD commands to use, sometimes in the design we may need to separate resources (single end point refers to a single operation) otherwise we may try to perform the same CRUD command. For example, a order fulfillment resource may contain both a order and payment resource. If we use a DELETE CRUD, we don't know whether to delete the order itself or delete the payment.
+
+In instances like that, we may need to split them into individual resources (one payment and one order).
 
 ### Caching
 
@@ -130,6 +122,7 @@ Because REST does not have a standard, errors during execution of requests on a 
 
 ### Building REST Web Services
 
+- REST web services do not rely on middlware and thus the implementation can be written in any language.
 - Any language can be used so long as the URI can reach the particular resource.
 - Can use servlets to create the REST interface.
 
@@ -144,7 +137,7 @@ Because REST does not have a standard, errors during execution of requests on a 
 
 ### Disadvantages
 
-- No defined standard.
+- No defined standard (No WSDL).
 - Integration is difficult with middleware as it requires knowledge of how the middleware works.
 - Exposes the resource directly by referencing it through a URI.
 - Difficulty integrating with legacy systems as they're based on RPC messaging.
