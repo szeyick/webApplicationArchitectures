@@ -4,7 +4,9 @@ From previous topics, we know that WS* approaches refer to RPC, Message Orientat
 
 ## Message Exchange Patterns (RPC - Remote Procedure Calls)
 
-RPC's are synchronous operations that follow the request/response pattern. The code is generally the same between the client and server, so the client essentially calls the same function on the server. This results in **tightly coupled code** since changes in either can stop the RPC from functioning correctly.
+RPC's are synchronous operations that follow the request/response pattern. The code is generally the same between the client and server, so the client essentially calls the same function on the server. This results in **tightly coupled code** since changes in either can stop the RPC from functioning correctly and RPC requires knowledge of the invoking method names.
+
+RPC requests usually comprise of using **method name + arguments**, the response will contain the service response or an acknowledge.
 
 ## Message Orientated API's
 
@@ -89,6 +91,8 @@ XML in a web service can be used for the following -
 Is a collection of names, contained within a URI reference (generally a file somewhere) that stores the valid element types and names that can be used by a schema to define an XML document.
 
 Every XML schema uses **at least two** namespaces to provide the vocabulary for the document. The main one being the namespace provided by W3C that contains all the generic types that can be used, and sometimes a user defined vocabulary.
+
+The second, non-default namespace will need to be referenced by a qualifier (i.e. xmlns:xsd="http:...."). This means that elements, attributes or any words within the document will need to be referred to by its qualifier <xsd:name>. 
 
 The below defines a user created XML for defining a bookstore with the two namespace documents.
 ```
