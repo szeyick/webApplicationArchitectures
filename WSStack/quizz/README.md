@@ -20,12 +20,12 @@
 
 3. How would you define the minimum length user-defined type "phonenumber" derived from string.
 
-  - <xsd:minInclusive value="4"/>
-  - <xsd:minLength ="4"/>
-  - <xsd:minLength value="4"/>
-  - <xsd:phonenumber.length ="4"/>
+  - xsd:minInclusive value="4"
+  - xsd:minLength ="4"
+  - xsd:minLength value="4"
+  - xsd:phonenumber.length ="4"
 
-**Answer** - <xsd:minLength value="4"/>, where the value attribute is 4. Because it is a user defined type, it follows the convention <xsd:facet value= "value"/>.
+**Answer** - xsd:minLength value="4", where the value attribute is 4. Because it is a user defined type, it follows the convention xsd:facet value= "value".
 
 4. Mark all of the following that are WSDL Messages Exchange Patterns (MEPs)?
 
