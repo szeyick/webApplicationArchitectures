@@ -12,18 +12,18 @@
 2. A target namespace refers to 
   
   - A namespace imported from some externally defined target.
-	- Is the same thing as a default namespce.
-	- Is a namespace used to validate an XML instance.
-	- Is just an arbitrary name you can assign to any namespace.
+  - Is the same thing as a default namespce.
+  - Is a namespace used to validate an XML instance.
+  - Is just an arbitrary name you can assign to any namespace.
 	
 **Answer** - The target namespace is used to validate the XML document. 
 
 3. How would you define the minimum length user-defined type "phonenumber" derived from string.
 
   - <xsd:minInclusive value="4"/>
-	- <xsd:minLength ="4"/>
-	- <xsd:minLength value="4"/>
-	- <xsd:phonenumber.length ="4"/>
+  - <xsd:minLength ="4"/>
+  - <xsd:minLength value="4"/>
+  - <xsd:phonenumber.length ="4"/>
 
 **Answer** - <xsd:minLength value="4"/>, where the value attribute is 4. Because it is a user defined type, it follows the convention <xsd:facet value= "value"/>.
 
@@ -39,37 +39,37 @@
 
 5. Match the following element to either an abstract or concrete part of a WSDL 1.1 definition.
 	
-  - <operation>
-  - <port>
-  - <binding>
-  - <types>
-  - <service> 
+  - operation
+  - port
+  - binding
+  - types
+  - service
   
 **Answer**
 
-  - <operation> - **Abstract (Interface) Part**
-  - <port> - **Concrete Part** - The port type is in the abstract part.
-  - <binding> - **Concrete Part** - The binding binds to the end point.
-  - <types> - **Abstract (Interface) Part** - The types that the messages accept.
-  - <service>  - **Concrete Part** - The operation from the interface connects to the service part.
+  - operation - **Abstract (Interface) Part**
+  - port - **Concrete Part** - The port type is in the abstract part.
+  - binding - **Concrete Part** - The binding binds to the end point.
+  - types - **Abstract (Interface) Part** - The types that the messages accept.
+  - service  - **Concrete Part** - The operation from the interface connects to the service part.
   
 6. Match the level of the Web service stack with the Web service standard.
 
   - WSDL
-	- SOAP
-	- BPEL (BPEL4WS)
-	- WS-Security
-	- HTTP
-	- UDDI
+  - SOAP
+  - BPEL (BPEL4WS)
+  - WS-Security
+  - HTTP
+  - UDDI
 	
 **Answer** - 
 
   - WSDL - Description
-	- SOAP - Messaging
-	- BPEL (BPEL4WS) - Business Process
-	- WS-Security - Quality of Service
-	- HTTP - Transport
-	- UDDI - Discovery
+  - SOAP - Messaging
+  - BPEL (BPEL4WS) - Business Process
+  - WS-Security - Quality of Service
+  - HTTP - Transport
+  - UDDI - Discovery
 	
 7. In WSDL, a one-way MEP is define with an operation that has: 
 
@@ -85,27 +85,27 @@ A notification is a one way message sent from the server, it will contain only a
 8. The default type of an element in the form <xsd:element name=“elementName” type=“elementType”/> is:
 
   - string
-	- boolean
-	- integer
-	- undefined
+  - boolean
+  - integer
+  - undefined
 	
 **Answer** - The default type unless otherwise specified is a string.
 
 9. The maximum number of times the element <xsd:element name=“Assess_item”/> can occur within its parent is: 
 
   - Zero
-	- One
-	- Two
-	- An unlimited number of times
+  - One
+  - Two
+  - An unlimited number of times
 	
 **Answer** - The maximum number of times the element can occur within its parent is once.
 
 10. WSDL is primarily a standard for Web Service:
 
   - Messaging
-	- Description
-	- Discovery
-	- Deployment
+  - Description
+  - Discovery
+  - Deployment
 	
 **Answer** - The purpose of a WSDL is a description language. It is used to describe a service to the outside world.
 
