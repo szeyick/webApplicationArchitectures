@@ -4,6 +4,8 @@ A **process** is a sequence of steps that is initiated by events, transforms the
 
 A **business process** is a set of logically related tasks to perform to achieve a **well defined business outcome**. It implies a horizontal view of an organisation and looks at the activities designed to produce an output for a customer or market. The achieved results can be defined in the context of the activities from the business process.
 
+In short hand, it is a group of tasks performed to achieve a business outcome.
+
 ## Process Characteristics
 
 - Contains **definitions** and **instances**.
