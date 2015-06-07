@@ -2,12 +2,19 @@
 
 SOAP sits in the **message** layer in the web services stack. It is the protocol that is responsible for sending messages between a client and the server. It differs from RESTful services as it is its own protocol whereas REST uses HTTP as the protocol (using GET, PUT, DELETE). SOAP on the other provides an additional layer of abstraction for messages to be sent.
 
+SOAP supports both RPC and document style messages. By this it means that RPC style message contains the web service method call in the request along with the arguments so it knows exactly which method to call. 
+
+In a document style SOAP message, the message contains only the XML fragement that is forwarded during run-time. It is up to the middleware to figure out which method receives the call.
+
 ## WSDL and SOAP
 
 The WSDL (Web Services Description Language) defines the interface that exposes the operations (methods) of a particular web service to the outside world. It is comprised of **two parts**, the **abstract interface** and the **concrete definition**. The concrete definition contains the end points that link directly to the methods that invoke the service. The abstraction links to the concrete definition through the **binding** that states which interface operation maps to which concrete operation. 
 
-The **<binding>** tag that maps the interface to the concrete defintion can also be used to define the style of the message. The style of the message can be defined as SOAP, meaning that the operation (method) shall receive a message in the structure of a 
-SOAP message.
+The abstract definition contains the **message types**, **port types**, **operations**
+
+The concrete definition contains the **port**, **binding** and **services**. 
+
+The **<binding>** tag that maps the interface to the concrete defintion can also be used to define the style of the message. The style of the message can be defined as SOAP, meaning that the operation (method) shall receive a message in the structure of a SOAP message.
 
 The image below illustrates the link between the interface and concrete parts of the WSDL.
 
@@ -31,11 +38,11 @@ It is a protocol that is primiarly used for server to server communication. Sinc
 
 SOAP is based on **exchanging messages**, where the messages themselves can be best described as **envelopes** as the message contains the data that is to be sent. 
 
-There is an **<Envelope>** element that contains two parts, the **<Header>** and **<Body>**. Only the **<Body** is mandatory. 
+There is an **\<Envelope\>** element that contains two parts, the **\<Header\>** and **\<Body\>**. Only the **\<Body\>** is mandatory. 
 
-The **<Header>** contains entries called **blocks** that define how the message can be processed (i.e. namespace, validation).
+The **\<Header\>** contains entries called **blocks** that define how the message can be processed (i.e. namespace, validation). It is an optional field in the SOAP envelope, however if used can contain multiple **header blocks**.
 
-The **<Body>** contains the actual message/data. The diagram below describes the structure of a SOAP envelope.
+The **\<Body\>** contains the actual message/data. The diagram below describes the structure of a SOAP envelope. The body is a mandatory part of the SOAP message. Within the body, there can be 1 or more **body blocks**
 
 ![SOAP Envelope](https://github.com/szeyick/webApplicationArchitectures/blob/master/SOAP/resources/SOAPEnvelope.png "The structure of a SOAP message")
 
@@ -59,9 +66,12 @@ xmlns:env=“http://www.w3.org/2003/05/soap-envelope” >
 ……………
 </env:Envelope>
 ```
+
 ### When the message is sent
 
 When a message is sent, it can be first sent to an **intermediary** that can validate data in the header to ensure that the message can be read by the service before the body is unpacked. The message is routed to the intermediary to process that can return a fault if it cannot process the message in the header, without it ever reaching the service endpoint.
+
+The intermediary is defined within the **\<header\>** element in its own **\<env:role http://...\>**. It describes the location of the intermediary and the message contents to send to it.
 
 ### SOAP Body
 
@@ -126,6 +136,10 @@ The Document (Message) style is a SOAP message where the body contains an XML fr
 ### Error Messages
 
 SOAP provides a model for handling errors in the processing of messages.
+
+A **\<Fault\>** message is only used when an error is found. A single SOAP message can only contain application data or the fault message, it can not contain both.
+
+The fault element contains the code, reason and detail elements to describe the fault.
 
 ```
 <env:Body>
