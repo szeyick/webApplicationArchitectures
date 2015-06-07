@@ -1,5 +1,7 @@
 # Messaging Architectures, ESB's and Policies
 
+With SOAP and WSDL, we can use a document style messaging system. Because it is XML based, it means that we can use asynchronous messaging allowing for looser couplign between components.
+
 ## Message Orientated Middleware (MoM)
 
 Middleware handles the connections between the clients and servers. This results in a slightly less complex system as the communication channels are managed by the middlware. By delegating the handling of communications, the message sender and receiver are decoupled.
@@ -19,6 +21,8 @@ An **MoM Integration Broker** or **ESB** provides the middleware with the follow
 
 It is a standard that leaverages MoM across independant (heterogeneous) systems. It is a new way of building and deploying web services by combining different pieces of middleware into a single package. It manages the deployment of web services and helps solve some of the **integration** problems that may exist when combining different systems together.
 
+An ESB/Integration Broker processes the business rules, transforms and transports messages, events and alerts.
+
 ### Key Features of ESB
 
 - Web Service Support - SOAP, WSDL, UDDI (Universal Description, Discovery and Integration)
@@ -29,6 +33,8 @@ It is a standard that leaverages MoM across independant (heterogeneous) systems.
 
 The ESB infrastructure provides a framework that orchestrates the behaviour between services in a distributed system.
 
+ESB provides two mechanisms for sending messages asynchronously, store-and-forwarding and publish-subscribe.
+
 ## Enterprise Messaging
 
 Messaging provides the basic communication models that **store and forward** messages along through the **publish and subscribe** pattern.
@@ -37,7 +43,7 @@ Messaging provides the basic communication models that **store and forward** mes
 
 Is a queueing mechanism where messages are placed on a virtual channel (message queue) by the message sender which are retrieved by the receiving application when needed.
 
-The message queue functions as a container that holds the message until it is required.
+The messages are placed on the message queue and the receiving application retrieves the messages from the queue. The queue acts as a container that holds the message until it is pulled out by a receiver.
 
 ![alt text][messageQueue]
 
@@ -63,7 +69,7 @@ Example Patterns Include -
 
 ### Message Routing
 
-A message router can be used when we wish to pass messages to different filters depending on a condition. Rather than publishing directly to the message queue, the router consumes the message and forwards it onto the correct channel depending on a set of conditions.
+A message router acts as a filter that redirects messages from an incoming channel to multiple output channels. The filter is constructed by a set conditions to determine which channel the messages get routed to.
 
 ## WS-Reliable Messaging
 
@@ -106,7 +112,23 @@ The message topic functions as a container for messages that are sent by the pub
 ### JMS Reliability 
 
 - Reliable Message Delivery - The messaging server will deliver the message to the client if no application or network issues. It will deliver it **at most once**
+
 - Guaranteed Message Delivery - The message will be delivered even with application or network issues. The messaging server will store the message then forward to the client, the client needs to send an acknowledgement to verify the message being received.
+ 
+#### JMS Components
+- Provider/Broker - The MoM Interface.
+- Client - An application or process that produces/receives messages.
+- Producer/Publisher - A JMS Client (above) that creates and sends the message.
+- Consumer/Subscriber - A JMS Client (above) that receives the message.
+ 
+#### JMS Transport
+
+- Point-to-Point (Store and Forward) - Message addressed to a specific queue, clients retrieve messages from the queue
+- Point-to-Point (Store and Forward) - Any publisher can send to the queue but only one consumer can retrieve it.
+- Point-to-Point (Store and Forward) - Messages stay in the queue until they are retrieved or expire.
+ 
+- Publisher-Subscribe - Messages are published to a *topic**, which is a container that subscribers must register to.
+- Publisher-Subscribe - Subscribers remains active and the topic delivers the message, the receiver sends a response to tell the topic that it has received.
 
 ## Web Service Policies
 
