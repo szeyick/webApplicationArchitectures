@@ -36,6 +36,8 @@ EDA processes communicate by accessing shared events in something called an **ev
 
 It is a purely asynchronous architecture that connects the subscribers with the publishers. Furthermore, we can also bind a set of rules to allow it to react differently to certain events.
 
+An EDA senses and processes events to subscribers. Because it is decoupled, the publishers don't care who consumes the events and multiple processes can consume the events. 
+
 ### Features
 
 - Captures asynchronous events occuring in parallel.
@@ -63,9 +65,13 @@ For **simple events**, the event is triggered and a the subscriber responds imme
 
 **Complex Event Processing (CEP)** includes a set of techniques and tools to help undersatnd and control event driven information systems.
 
+In addition, there is also a **stream event processing**. In this style, events are streaming in and it is up to the architecture to filter them and make sense of it to create additional events. 
+
+Traditional application development isn't designed to handle high volumes of traffic or complex queries. Also the data is usually static and database access being quite slow, with complex event processing, the data is stored and processed on the fly.
+
 ### Event Driven Architectures and SOA
 
-EDA's promote the decoupling of business processes through the publish/subscribe model. A publisher can trigger an event which can be consumed by multiple processes without them evern knowing about each other. As a result SOA and EDA's are complimentary architectures.
+EDA's promote the decoupling of business processes through the publish/subscribe model. A publisher can trigger an event which can be consumed by multiple processes without them even knowing about each other. As a result SOA and EDA's are complimentary architectures.
 
 Service Orientated Architectures (SOA), requires knowledge of where the service is. However with EDA, you can generate the event but you don't care who responds to it. 
 
