@@ -16,11 +16,11 @@ These describe how a business process is created by composing the basic activiti
 
 It allows -
 
-- To specify which activites should be run **sequentially** (<sequence>) or in parallel (<flow>).
-- To branch activities (<if>).
-- To specify a alternate path based on an event (<pick>).
-- To define iterations (<while>, <repeatUntil>, <forEach>).
-- Associate an activity with its own local variable and handlers (<scope>).
+- To specify which activites should be run **sequentially** (\<sequence\>) or in parallel (\<flow\>).
+- To branch activities (\<if\>).
+- To specify a alternate path based on an event (\<pick\>).
+- To define iterations (\<while\>, \<repeatUntil\>, \<forEach\>).
+- Associate an activity with its own local variable and handlers (\<scope\>).
 
 ### Sequence -
 
@@ -37,7 +37,7 @@ A sequence defines a sequential series of steps through a process. These must be
 
 ### Flow -
 
-A flow defines activities that can be executed in parallel. Within a flow activity, we have **<links>** that synchronise a **source** activity to a **target** activity. For each link in a flow, it must have exactly **one source activity and one target activity**.
+A flow defines activities that can be executed in parallel. Within a flow activity, we have **\<links\>** that synchronise a **source** activity to a **target** activity. For each link in a flow, it must have exactly **one source activity and one target activity**.
 
 Flows also have **transitional** conditions that are evaluated when a source completes. These can then be followed by **join conditions** that determine whether to move to the next activity.
 
